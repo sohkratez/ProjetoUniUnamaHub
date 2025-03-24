@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Arquivos Armazenados</h1>
+
+{% if files %}
+    <ul>
+        {% for file in files %}
+            <li>
+                <img src="{{ file.file.url }}" alt="{{ file.name }}" width="300">
+                <p>{{ file.name }}</p>
+                <small>(Enviado em: {{ file.uploaded_at|date:"d/m/Y H:i" }})</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Não há arquivos armazenados.</p>
+{% endif %}
+
+{% endblock %}
