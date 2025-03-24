@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Projetos</h1>
+
+    <form method='get' action='{% url "task-list" %}'>
+        <label for='status'>Status: </label>
+        <select name="status" id='status'>
+            <option value=''>Todos</option>
+            <option value='P'>Pendente</option>
+            <option value='A'>Em Andamento</option>
+            <option value='C'>Concluido</option>
+        </select>
+
+        <button type='submit'>Filtrar</button>
+    </form>
+
+    <table class="table table-striped-columns table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Projeto</th>
+                <th scope="col">Descriçao</th>
+                <th scope="col">Data De criaçao</th>
+                <th scope="col">Data de Entrega</th>
+                <th scope="col">Status</th>
+                <th scope="col">Açoes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in tasks %}
+
+                <tr>
+                    <td>{{task.pk}}</td>
+                    <td>{{task.title}}</td>
+                    <td>{{task.description}}</td>
+                    <td>{{task.created_at}}</td>
+                    <td>{{task.due_date}}</td>
+                    <td>
+                        {% if task.status == 'P'%}
+                            <span class="badge bg-warning" title="Pendente">P</span>
+                        {% elif task.status == 'A' %}
+                            <span class='badge bg-info' title='Em Andamento'>A</span>
+                        {% elif task.status == 'C' %}
+                            <span class='badge bg-success' title='Completo'>C</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url "task-edit" pk=task.pk %}" class=" btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url "task-delete" pk=task.pk %}" class=" btn btn-danger btn-sm">Excluir</a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+          </tbody>
+      </table>
+{% endblock content %}
