@@ -31,7 +31,7 @@
           <tbody>
             {% for task in tasks %}
 
-                <tr>
+                <tr onclick="window.location.href='{% url "task-detail" pk=task.pk %}'" style="cursor: pointer;">
                     <td>{{task.pk}}</td>
                     <td>{{task.title}}</td>
                     <td>{{task.description}}</td>

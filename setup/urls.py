@@ -7,11 +7,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', HomeView.as_view(), name='main-home'),
-    path('', TaskListView.as_view(), name = 'task-list'),
-    path('Tasks/<int:pk>/edit/', TaskUpdateView.as_view(), name= 'task-edit'),
-    path('Tasks/<int:pk>/delete/', TaskDeleteView.as_view(), name= 'task-delete'),
-    path('Tasks/create/', TaskCreateView.as_view(), name='task-create'),
+    path('', HomeView.as_view(), name='main-home'),
+    path('Tasks/', include('tasks.urls')),
     path('account/', include('account.urls')),
     path('upload/', include('filemanager.urls'))
 ]
